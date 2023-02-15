@@ -31,9 +31,9 @@ export const AddUser = () => {
     name: "",
     password: "",
   });
-  let [data, setData] = useState([]);
+  localStorage.setItem("userData", JSON.stringify([]));
+  let data = JSON.parse(localStorage.getItem("userData"));
   //console.log(input);
-
   const handleChange = (e) => {
     const { value, name } = e.target;
     setInput(() => {
@@ -45,16 +45,42 @@ export const AddUser = () => {
   };
 
   const remove = () => {
-    localStorage.removeItem("Name");
-    localStorage.removeItem("Password");
+    // let index = data.findIndex(
+    //   (toDelete) =>
+    //     toDelete.name === input.name && toDelete.password === input.password
+    // );
+    // console.log(index, data.length);
+    // if (index <= data.length) {
+    //   delete data[index];
+    //   localStorage.setItem("userData", JSON.stringify([...data]));
+    // } else {
+    //   localStorage.setItem("userData", JSON.stringify([...data]));
+    // }
+    //   const tempData = data?.map(
+    //     (i) => i.name != input.name && i.password != input.password
+    //   );
+    //   console.log("temp data ---->", tempData);
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log(input);
-    localStorage.setItem("userData", JSON.stringify([input]));
+
+    // let tdata = localStorage.getItem("userData");
+    // if (tdata == null) {
+    //   localStorage.setItem("userData", JSON.stringify([]));
+    // }
+    //data.push(...tdata, input);
+
+    // const tempd = tdata?.map((i) => i != []);
+    //  if(data.)
+
+    // console.log("temp d - -->", tempd);
+
+    localStorage.setItem("userData", JSON.stringify(...data, input));
+
     // console.log("data added=======>", data);
-    console.log("name--->", input.name);
+    console.log("data --->", ...data);
     //localStorage.setItem("user", input.name);
   };
 
