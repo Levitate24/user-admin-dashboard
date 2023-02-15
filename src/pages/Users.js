@@ -10,7 +10,7 @@ export const Users = () => {
 
 export const UserList = () => {
   return (
-    <div>Hello, World!</div>
+    <div className="addUser">Hello, World!</div>
     // <div className="home">
     //   {localStorage.getItem("Name") && (
     //     <div className="addUser">
