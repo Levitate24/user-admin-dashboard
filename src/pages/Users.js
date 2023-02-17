@@ -56,7 +56,7 @@ export const AddUser = () => {
     console.log(index, dataRemove.length);
     if (index > -1) {
       dataRemove.splice(index, 1);
-      console.log(dataRemove);
+      //console.log(dataRemove);
       localStorage.setItem("userData", JSON.stringify([...dataRemove]));
     }
 
@@ -86,9 +86,17 @@ export const AddUser = () => {
 
     // console.log("temp d - -->", tempd);
     let data = JSON.parse(localStorage.getItem("userData"));
-    localStorage.setItem("userData", JSON.stringify([...data, input]));
-    // console.log("data added=======>", data);
-    console.log("data --->", ...data);
+    let index = data.findIndex(
+      (toFind) =>
+        toFind.name === input.name && toFind.password === input.password
+    );
+    if (index > -1) {
+      alert("User already exists!");
+    } else {
+      localStorage.setItem("userData", JSON.stringify([...data, input]));
+      // console.log("data added=======>", data);
+      //console.log("data --->", ...data);
+    }
     //localStorage.setItem("user", input.name);
   };
 
