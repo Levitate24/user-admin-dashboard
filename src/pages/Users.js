@@ -2,23 +2,42 @@ import React, { useState } from "react";
 
 export const Users = () => {
   return (
-    <div className="home">
-      <h1>Users</h1>
+    <div className="User">
+      <h1>Welcome, Admin!</h1>
     </div>
   );
 };
 
 export const UserList = () => {
+  if (localStorage.getItem("userData") === null) {
+    localStorage.setItem("userData", JSON.stringify([]));
+  }
+  let data = JSON.parse(localStorage.getItem("userData"));
+
   return (
-    <div className="addUser">Hello, World!</div>
-    // <div className="home">
+    <div className="User">
+      <ul>
+        {data.map((list) => {
+          return (
+            <>
+              <li>
+                Name: {list.name}, Password: {list.password}
+              </li>
+              <br />
+            </>
+          );
+        })}
+      </ul>
+    </div>
+
+    // <div className="User">
     //   {localStorage.getItem("Name") && (
-    //     <div className="addUser">
+    //     <div className="User">
     //       Name: <p>{localStorage.getItem("Name")}</p>
     //     </div>
     //   )}
     //   {localStorage.getItem("Password") && (
-    //     <div className="addUser">
+    //     <div className="User">
     //       Password: <p>{localStorage.getItem("Password")}</p>
     //     </div>
     //   )}
@@ -102,18 +121,18 @@ export const AddUser = () => {
 
   return (
     <div>
-      <p className="addUser">Name of the user:</p>
+      <p className="User">Name of the user:</p>
       <input
-        className="addUser"
+        className="User"
         placeholder="Name"
         name="name"
         onChange={handleChange}
       />
       <br />
       <br></br>
-      <p className="addUser">Password of the user:</p>
+      <p className="User">Password of the user:</p>
       <input
-        className="addUser"
+        className="User"
         type="password"
         name="password"
         placeholder="Password"
@@ -122,7 +141,7 @@ export const AddUser = () => {
       <br />
       <br></br>
       <div>
-        <button className="addUser" onClick={handleSubmit}>
+        <button className="User" onClick={handleSubmit}>
           Done
         </button>
       </div>
@@ -130,7 +149,7 @@ export const AddUser = () => {
       <br />
       <br></br>
       <div>
-        <button className="addUser" onClick={remove}>
+        <button className="User" onClick={remove}>
           Remove
         </button>
       </div>

@@ -55,7 +55,7 @@ function Sidebar() {
           <h1
             style={{ textAlign: "center", marginLeft: "200px", color: "green" }}
           >
-            Welcome
+            Admin Dashboard
           </h1>
         </Nav>
         <SidebarNav sidebar={sidebar}>
