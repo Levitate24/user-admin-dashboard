@@ -32,7 +32,7 @@ export const AddUser = () => {
     password: "",
   });
 
-  // let data = JSON.parse(localStorage.getItem("userData"));
+  //let globalData = [];
   //console.log(input);
   const handleChange = (e) => {
     const { value, name } = e.target;
@@ -48,12 +48,18 @@ export const AddUser = () => {
   };
 
   const remove = () => {
-    // let index = data.findIndex(
-    //   (toDelete) =>
-    //     toDelete.name === input.name && toDelete.password === input.password
-    // );
-    // console.log(index, data.length);
-    // if (index <= data.length) {
+    let dataRemove = JSON.parse(localStorage.getItem("userData"));
+    let index = dataRemove.findIndex(
+      (toDelete) =>
+        toDelete.name === input.name && toDelete.password === input.password
+    );
+    console.log(index, dataRemove.length);
+    if (index > -1) {
+      dataRemove.splice(index, 1);
+      console.log(dataRemove);
+      localStorage.setItem("userData", JSON.stringify([...dataRemove]));
+    }
+
     //   delete data[index];
     //   localStorage.setItem("userData", JSON.stringify([...data]));
     // } else {
@@ -81,7 +87,6 @@ export const AddUser = () => {
     // console.log("temp d - -->", tempd);
     let data = JSON.parse(localStorage.getItem("userData"));
     localStorage.setItem("userData", JSON.stringify([...data, input]));
-
     // console.log("data added=======>", data);
     console.log("data --->", ...data);
     //localStorage.setItem("user", input.name);
