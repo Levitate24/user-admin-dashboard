@@ -31,8 +31,8 @@ export const AddUser = () => {
     name: "",
     password: "",
   });
-  localStorage.setItem("userData", JSON.stringify([]));
-  let data = JSON.parse(localStorage.getItem("userData"));
+
+  // let data = JSON.parse(localStorage.getItem("userData"));
   //console.log(input);
   const handleChange = (e) => {
     const { value, name } = e.target;
@@ -42,6 +42,9 @@ export const AddUser = () => {
         [name]: value,
       };
     });
+    if (localStorage.getItem("userData") === null) {
+      localStorage.setItem("userData", JSON.stringify([]));
+    }
   };
 
   const remove = () => {
@@ -76,8 +79,8 @@ export const AddUser = () => {
     //  if(data.)
 
     // console.log("temp d - -->", tempd);
-
-    localStorage.setItem("userData", JSON.stringify(...data, input));
+    let data = JSON.parse(localStorage.getItem("userData"));
+    localStorage.setItem("userData", JSON.stringify([...data, input]));
 
     // console.log("data added=======>", data);
     console.log("data --->", ...data);
