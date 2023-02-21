@@ -23,4 +23,22 @@ export const SidebarData = [
       },
     ],
   },
+  {
+    title: "LogOut",
+    path: "/log-out",
+    icon: <AiIcons.AiOutlineBackward />,
+  },
+];
+
+export const UserSidebarData = [
+  {
+    title: "Edit Details",
+    icon: <AiIcons.AiFillEdit />,
+    path: "/user-details",
+  },
+  {
+    title: "LogOut",
+    path: "/user-log-out",
+    icon: <AiIcons.AiOutlineBackward />,
+  },
 ];

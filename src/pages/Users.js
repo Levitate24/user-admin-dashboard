@@ -1,9 +1,12 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import Sidebar from "../components/Sidebar";
 
 export const Users = () => {
   return (
-    <div className="User">
-      <h1>Welcome, Admin!</h1>
+    <div>
+      <Sidebar />
+      <h1 className="User">Welcome, Admin!</h1>
     </div>
   );
 };
@@ -15,19 +18,22 @@ export const UserList = () => {
   let data = JSON.parse(localStorage.getItem("userData"));
 
   return (
-    <div className="User">
-      <ul>
-        {data.map((list) => {
-          return (
-            <>
-              <li>
-                Name: {list.name}, Password: {list.password}
-              </li>
-              <br />
-            </>
-          );
-        })}
-      </ul>
+    <div>
+      <Sidebar />
+      <div className="User">
+        <ul>
+          {data.map((list) => {
+            return (
+              <>
+                <li>
+                  Name: {list.username}, Password: {list.password}
+                </li>
+                <br />
+              </>
+            );
+          })}
+        </ul>
+      </div>
     </div>
 
     // <div className="User">
@@ -47,7 +53,7 @@ export const UserList = () => {
 
 export const AddUser = () => {
   const [input, setInput] = useState({
-    name: "",
+    username: "",
     password: "",
   });
 
@@ -70,7 +76,8 @@ export const AddUser = () => {
     let dataRemove = JSON.parse(localStorage.getItem("userData"));
     let index = dataRemove.findIndex(
       (toDelete) =>
-        toDelete.name === input.name && toDelete.password === input.password
+        toDelete.username === input.username &&
+        toDelete.password === input.password
     );
     console.log(index, dataRemove.length);
     if (index > -1) {
@@ -107,7 +114,7 @@ export const AddUser = () => {
     let data = JSON.parse(localStorage.getItem("userData"));
     let index = data.findIndex(
       (toFind) =>
-        toFind.name === input.name && toFind.password === input.password
+        toFind.username === input.username && toFind.password === input.password
     );
     if (index > -1) {
       alert("User already exists!");
@@ -121,11 +128,12 @@ export const AddUser = () => {
 
   return (
     <div>
+      <Sidebar />
       <p className="User">Name of the user:</p>
       <input
         className="User"
         placeholder="Name"
-        name="name"
+        name="username"
         onChange={handleChange}
       />
       <br />
@@ -153,6 +161,25 @@ export const AddUser = () => {
           Remove
         </button>
       </div>
+    </div>
+  );
+};
+
+export const LogOut = () => {
+  console.log("inside log out ");
+
+  // console.log("adminLogin ===>", localStorage.getItem("adminLogin"));
+  let navigate = useNavigate();
+  let handleLogOut = () => {
+    localStorage.setItem("adminLogin", false);
+    navigate("/home");
+  };
+  return (
+    <div>
+      <Sidebar />
+      <button onClick={handleLogOut} className="User">
+        Log Out
+      </button>
     </div>
   );
 };

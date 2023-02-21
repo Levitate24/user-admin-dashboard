@@ -24,8 +24,17 @@ export default function AdminSignIn() {
     e.preventDefault();
     setFormErrors(validate(formValues));
     setIsSubmit(true);
+    if (
+      formValues.adminusername === AdminData.adminusername &&
+      formValues.adminpassword === AdminData.adminpassword
+    ) {
+      localStorage.setItem("adminLogin", true);
+      alert("Signed In successfully!");
+      navigate("/user");
+    } else {
+      alert("Wrong Username/Password");
+    }
     //handleClickOnSignUp();
-    navigate("/sidebar");
   };
 
   useEffect(() => {

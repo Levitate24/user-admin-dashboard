@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { Link } from "react-router-dom";
 import * as Falcons from "react-icons/fa";
 import * as AiIcons from "react-icons/ai";
-import { SidebarData } from "./SidebarData";
+import { SidebarData, UserSidebarData } from "./SidebarData";
 import SubMenu from "./SubMenu";
 import { IconContext } from "react-icons/lib";
 
@@ -16,7 +16,6 @@ const Nav = styled.div`
 `;
 
 const NavIcon = styled(Link)`
-  background: #15171c;
   margin-left: 2rem;
   font-size: 2rem;
   height: 80px;
@@ -53,7 +52,7 @@ function Sidebar() {
             <Falcons.FaBars onClick={showSidebar} />
           </NavIcon>
           <h1
-            style={{ textAlign: "center", marginLeft: "200px", color: "green" }}
+            style={{ textAlign: "center", marginLeft: "200px", color: "white" }}
           >
             Admin Dashboard
           </h1>
@@ -74,3 +73,34 @@ function Sidebar() {
 }
 
 export default Sidebar;
+
+export function UserSidebar() {
+  const [sidebar, setSidebar] = useState(false);
+  const showSidebar = () => setSidebar(!sidebar);
+  return (
+    <>
+      <IconContext.Provider value={{ color: "#fff" }}>
+        <Nav>
+          <NavIcon to="#">
+            <Falcons.FaBars onClick={showSidebar} />
+          </NavIcon>
+          <h1
+            style={{ textAlign: "center", marginLeft: "200px", color: "white" }}
+          >
+            User Dashboard
+          </h1>
+        </Nav>
+        <SidebarNav sidebar={sidebar}>
+          <SidebarWrap>
+            <NavIcon to="#">
+              <AiIcons.AiOutlineClose onClick={showSidebar} />
+            </NavIcon>
+            {UserSidebarData.map((item, index) => {
+              return <SubMenu item={item} key={index} />;
+            })}
+          </SidebarWrap>
+        </SidebarNav>
+      </IconContext.Provider>
+    </>
+  );
+}

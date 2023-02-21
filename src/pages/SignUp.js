@@ -14,20 +14,24 @@ export default function SignUp() {
   const [formValues, setFormValues] = useState(initialValues);
   const [formErrors, setFormErrors] = useState({});
   const [isSubmit, setIsSubmit] = useState(false);
+  if (localStorage.getItem("userData") == null) {
+    localStorage.setItem("userData", JSON.stringify([]));
+  }
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormValues({ ...formValues, [name]: value });
-    if (localStorage.getItem("user") == null) {
-      localStorage.setItem("user", JSON.stringify([]));
-    }
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
     setFormErrors(validate(formValues));
     setIsSubmit(true);
-    let data = JSON.parse(localStorage.getItem("user"));
+  };
+
+  useEffect(() => {
+    console.log(formErrors);
+    let data = JSON.parse(localStorage.getItem("userData"));
     let index = data.findIndex(
       (toFind) =>
         toFind.username === formValues.username &&
@@ -37,17 +41,12 @@ export default function SignUp() {
       alert("User already exists!");
     } else {
       if (Object.keys(formErrors).length === 0 && isSubmit) {
+        //&& isSubmit
+        console.log(formValues);
+        console.log("Signed up successfully");
         console.log("test");
-        localStorage.setItem("user", JSON.stringify([...data, formValues]));
+        localStorage.setItem("userData", JSON.stringify([...data, formValues]));
       }
-    }
-  };
-
-  useEffect(() => {
-    console.log(formErrors);
-    if (Object.keys(formErrors).length === 0 && isSubmit) {
-      console.log(formValues);
-      console.log("Signed up successfully");
     }
   }, [formErrors]);
 

@@ -55,7 +55,7 @@ export default function SignIn() {
     //   alert("Password must be more than 4 character and less than 10 characters. \nPassword should contain atleast one special character,one number,one lowercase and uppercase letter.");
     // }
 
-    const getuserArr = localStorage.getItem("user");
+    const getuserArr = localStorage.getItem("userData");
 
     if (getuserArr && getuserArr.length) {
       const userdata = JSON.parse(getuserArr);
@@ -66,6 +66,13 @@ export default function SignIn() {
         );
       });
       console.log(userlogin);
+      if (userlogin.length !== 0) {
+        alert("Signed In successfully");
+        navigate("/userdash");
+        localStorage.setItem("logInDetails", JSON.stringify(formValues));
+      } else {
+        alert("Signed In failed");
+      }
     }
 
     return errors;
@@ -118,11 +125,11 @@ export default function SignIn() {
             </div>
           </div>
         </form>
-        {Object.keys(formErrors).length === 0 && isSubmit ? (
-          <div className="ui message success">Signed In successfully</div>
-        ) : (
-          <div></div>
-        )}
+        {/* {Object.keys(formErrors).length === 0 && isSubmit ? (
+        <div className="ui message success">Signed In successfully</div>
+      ) : (
+        <div></div>
+      )} */}
       </div>
     </>
   );
