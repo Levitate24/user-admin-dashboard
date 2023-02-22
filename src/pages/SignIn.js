@@ -7,6 +7,7 @@ import {
   Link,
   useNavigate,
 } from "react-router-dom";
+import Navbar from "../components/Navbar";
 import SignUp from "./SignUp";
 
 export default function SignIn() {
@@ -86,6 +87,7 @@ export default function SignIn() {
 
   return (
     <>
+      <Navbar isLoggedIn={false} user={null} />
       <div className="container">
         <form onSubmit={handleSubmit}>
           <h1>Sign In</h1>

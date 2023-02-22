@@ -1,10 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Sidebar from "../components/Sidebar";
+import "../App.css";
+import Navbar from "../components/Navbar";
 
 export const Users = () => {
   return (
     <div>
+      <Navbar isLoggedIn={true} user={null} />
       <Sidebar />
       <h1 className="User">Welcome, Admin!</h1>
     </div>
@@ -19,21 +22,22 @@ export const UserList = () => {
 
   return (
     <div>
+      <Navbar isLoggedIn={true} user={null} />
       <Sidebar />
-      <div className="User">
-        <ul>
-          {data.map((list) => {
-            return (
-              <>
-                <li>
-                  Name: {list.username}, Password: {list.password}
-                </li>
-                <br />
-              </>
-            );
-          })}
-        </ul>
-      </div>
+      <table className="Table">
+        <tr>
+          <th>Username</th>
+          <th>Password</th>
+        </tr>
+        {data.map((list) => {
+          return (
+            <tr>
+              <td>{list.username}</td>
+              <td>{list.password}</td>
+            </tr>
+          );
+        })}
+      </table>
     </div>
 
     // <div className="User">
@@ -56,6 +60,12 @@ export const AddUser = () => {
     username: "",
     password: "",
   });
+  const [formErrors, setFormErrors] = useState({});
+  const [isSubmit, setIsSubmit] = useState(false);
+
+  if (localStorage.getItem("userData") === null) {
+    localStorage.setItem("userData", JSON.stringify([]));
+  }
 
   //let globalData = [];
   //console.log(input);
@@ -67,9 +77,6 @@ export const AddUser = () => {
         [name]: value,
       };
     });
-    if (localStorage.getItem("userData") === null) {
-      localStorage.setItem("userData", JSON.stringify([]));
-    }
   };
 
   const remove = () => {
@@ -97,37 +104,64 @@ export const AddUser = () => {
     //   console.log("temp data ---->", tempData);
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    console.log(input);
-
-    // let tdata = localStorage.getItem("userData");
-    // if (tdata == null) {
-    //   localStorage.setItem("userData", JSON.stringify([]));
-    // }
-    //data.push(...tdata, input);
-
-    // const tempd = tdata?.map((i) => i != []);
-    //  if(data.)
-
-    // console.log("temp d - -->", tempd);
+  useEffect(() => {
+    console.log(formErrors);
     let data = JSON.parse(localStorage.getItem("userData"));
     let index = data.findIndex(
       (toFind) =>
         toFind.username === input.username && toFind.password === input.password
     );
-    if (index > -1) {
+    if (index > -1 && Object.keys(formErrors).length === 0 && !isSubmit) {
       alert("User already exists!");
-    } else {
+    } else if (Object.keys(formErrors).length === 0 && isSubmit) {
       localStorage.setItem("userData", JSON.stringify([...data, input]));
       // console.log("data added=======>", data);
       //console.log("data --->", ...data);
     }
-    //localStorage.setItem("user", input.name);
+  }, [formErrors]);
+
+  const validate = (values) => {
+    const errors = {};
+    const password_pattern =
+      /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{4,10}$/;
+    const username_pattern = /^[a-zA-Z]+[a-zA-Z0-9 ]*$/;
+
+    if (
+      !values.username ||
+      !values.username.match(username_pattern) ||
+      values.username.length > 14 ||
+      values.username.length < 3
+    ) {
+      errors.username =
+        "*Username must start with a letter and can't contain a special character!";
+      alert(
+        "Username must start with a letter and can't contain a special character! \nUsername must be more than 2 and less than 15 characters"
+      );
+    }
+    // } else if (values.username.length > 14 || values.username.length < 3) {
+    //   errors.username =
+    //     "*Username must be more than 2 and less than 15 characters";
+    // }
+
+    if (!values.password && !values.password.match(password_pattern)) {
+      errors.password = "*Password is invalid";
+      alert(
+        "Password must be more than 4 character and less than 10 characters. \nPassword should contain atleast one special character,one number,one lowercase and uppercase letter."
+      );
+    }
+    return errors;
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    setFormErrors(validate(input));
+    setIsSubmit(true);
+    // console.log(input);
   };
 
   return (
     <div>
+      <Navbar isLoggedIn={true} user={null} />
       <Sidebar />
       <p className="User">Name of the user:</p>
       <input
@@ -172,10 +206,11 @@ export const LogOut = () => {
   let navigate = useNavigate();
   let handleLogOut = () => {
     localStorage.setItem("adminLogin", false);
-    navigate("/home");
+    navigate("/");
   };
   return (
     <div>
+      <Navbar isLoggedIn={true} user={null} />
       <Sidebar />
       <button onClick={handleLogOut} className="User">
         Log Out

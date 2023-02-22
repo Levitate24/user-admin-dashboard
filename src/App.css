@@ -2,16 +2,27 @@
   text-align: center;
 }
 
-* {
+/* * {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
   text-align: center;
-  }
+  } */
   .User{
   display: flex;
   margin-left: 260px;
   font-size: 2rem;
+  }
+  .Table{
+    color: #fff;
+    margin-left: 260px;
+    font-size: 2rem;
+    padding: 2px;
+    border: 1px solid #ddd;
+  }
+  table, th, td, tr {
+    padding: 10px;
+    border: 1px solid #ddd;
   }
   
   body{
@@ -62,14 +73,16 @@
   .signuplink{
     padding-top: 15px;
   }
-  * {
+  /* * {
     box-sizing: border-box;
-  }
+  } */
   
-  body {
+  /* body {
     margin: 0;
-  }
+  } */
   
+  
+
   .nav {
     background-color: rgb(24, 19, 92);
     color: white;
@@ -82,6 +95,7 @@
   
   .site-title {
     font-size: 2rem;
+    margin: 1 rem;
   }
   
   .nav ul {

@@ -1,6 +1,7 @@
 import React from "react";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import Navbar from "../components/Navbar";
 
 export default function AdminSignIn() {
   const initialValues = { adminusername: "", adminpassword: "" };
@@ -66,6 +67,7 @@ export default function AdminSignIn() {
 
   return (
     <>
+      <Navbar isLoggedIn={false} user={null} />
       <div className="container">
         <form onSubmit={handleSubmit}>
           <h1>Admin Sign In</h1>

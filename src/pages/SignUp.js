@@ -7,6 +7,7 @@ import {
   Link,
   useNavigate,
 } from "react-router-dom";
+import Navbar from "../components/Navbar";
 import SignIn from "./SignIn";
 
 export default function SignUp() {
@@ -41,7 +42,6 @@ export default function SignUp() {
       alert("User already exists!");
     } else {
       if (Object.keys(formErrors).length === 0 && isSubmit) {
-        //&& isSubmit
         console.log(formValues);
         console.log("Signed up successfully");
         console.log("test");
@@ -97,6 +97,7 @@ export default function SignUp() {
 
   return (
     <>
+      <Navbar isLoggedIn={false} user={null} />
       <div className="container">
         <form onSubmit={handleSubmit}>
           <h1>Sign Up</h1>

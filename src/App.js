@@ -33,9 +33,9 @@ function App() {
   return (
     <Router>
       {/* {bar ? <Sidebar /> : <Navbar />} */}
-      <Navbar />
+      {/* <Navbar /> */}
       <Routes>
-        <Route path="/home" element={<Home />} />
+        <Route path="/" element={<Home />} />
         <Route path="/about" element={<About />} />
         <Route path="/adminsignin" element={<AdminSignIn />} />
         <Route path="/usersignin" element={<SignIn />} />
