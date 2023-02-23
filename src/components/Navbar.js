@@ -62,9 +62,11 @@ export default function Navbar(props) {
   //     });
   //   }
   // }, []);
-  console.log("props===>", props);
+  // console.log("props===>", props);
   const handleNavBar = () => {
-    if (props.isLoggedIn && props.user !== null) {
+    // console.log("username===>", props.user);
+    console.log("logged in===>", props.isLoggedIn);
+    if (props.user !== null) {
       return <h2>Hello, {props.user.username}</h2>;
     } else if (props.isLoggedIn) {
       return <h2>Hello, Admin!</h2>;

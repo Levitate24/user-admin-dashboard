@@ -90,7 +90,7 @@ export function UserDetails() {
     //     "*Username must be more than 2 and less than 15 characters";
     // }
 
-    if (!values.password && !values.password.match(password_pattern)) {
+    if (!values.password || !values.password.match(password_pattern)) {
       errors.password = "*Password is invalid";
       alert(
         "Password must be more than 4 character and less than 10 characters. \nPassword should contain atleast one special character,one number,one lowercase and uppercase letter."
@@ -142,12 +142,22 @@ export function UserDetails() {
 
 export const UserLogOut = () => {
   console.log("inside log out ");
+  // const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  // const handleLogIn = () => {
+  //   if (localStorage.getItem("logInDetails") !== null) {
+  //     setIsLoggedIn(true);
+  //   } else {
+  //     setIsLoggedIn(false);
+  //   }
+  // };
 
   // console.log("adminLogin ===>", localStorage.getItem("adminLogin"));
   let navigate = useNavigate();
   let handleLogOut = () => {
     localStorage.removeItem("logInDetails");
     navigate("/");
+    // localStorage.clear();
   };
   return (
     <div>

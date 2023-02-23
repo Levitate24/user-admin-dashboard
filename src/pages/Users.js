@@ -111,7 +111,7 @@ export const AddUser = () => {
       (toFind) =>
         toFind.username === input.username && toFind.password === input.password
     );
-    if (index > -1 && Object.keys(formErrors).length === 0 && !isSubmit) {
+    if (index > -1) {
       alert("User already exists!");
     } else if (Object.keys(formErrors).length === 0 && isSubmit) {
       localStorage.setItem("userData", JSON.stringify([...data, input]));
@@ -143,7 +143,7 @@ export const AddUser = () => {
     //     "*Username must be more than 2 and less than 15 characters";
     // }
 
-    if (!values.password && !values.password.match(password_pattern)) {
+    if (!values.password || !values.password.match(password_pattern)) {
       errors.password = "*Password is invalid";
       alert(
         "Password must be more than 4 character and less than 10 characters. \nPassword should contain atleast one special character,one number,one lowercase and uppercase letter."
@@ -205,7 +205,8 @@ export const LogOut = () => {
   // console.log("adminLogin ===>", localStorage.getItem("adminLogin"));
   let navigate = useNavigate();
   let handleLogOut = () => {
-    localStorage.setItem("adminLogin", false);
+    localStorage.clear();
+    // localStorage.setItem("adminLogin", false);
     navigate("/");
   };
   return (
